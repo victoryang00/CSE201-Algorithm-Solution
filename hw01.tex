@@ -84,28 +84,7 @@ $f(n)=\omega(g(n))$
   $\lim _{n \rightarrow \infty} (n+1) ! /n !=\lim _{n \rightarrow \infty} \frac1n=0$, and $f(n)=o(g(n))$
 \end{proof}
 \subsection{$ f(n)=\lg \left(n^ n\right)  \quad  g(n)=\lg (n !)$}
-$f(n)=\omega (g(n))$
-\begin{proof}
-The outer function $h(n)=\lg n$ is monotonically increasing and positive $\forall n >0$, and both $n^n$ and $n!$ are increasing function, thus we the inner function can be compared directly. 
-
-Since we have as $p(n)$ and $q(n)$ are monotonically increasing functions,
-$$
-\begin{aligned}
-&n_1 \leq n_2 \Longrightarrow p(n_1) \leq p(n_2) \\
-&n_1 \leq n_2 \Longrightarrow q(n_1) \leq q(n_2)
-\end{aligned}
-$$
-
-Combining above two equation, $p(q(n)) \leq p(q(n))$
-Therefore, $p(q(n))$ is also monotonically increasing.
-
-Then since we have:
-$$\begin{aligned}
-  &n !=n *(n-1) *(n-2) *(n-3) * \ldots * 3 * 2 * 1 \\
-  &n^n =n * n * n * n * n * n
-  \end{aligned}$$
-They has exactly the same number but the item of $n!$ is always smaller or equal to the $n^n$ line. Thus $n!<n^n$, for $n>1, c=1 $, and $f(n)=\omega (g(n))$
-\end{proof}
+$f(n)=\Theta (g(n))$
 \begin{proof}
   Apply stirling's approximation
 $$
@@ -114,11 +93,7 @@ $$
 =\frac{1}{2} \lg (2 \pi n)+n \lg (n)-n \lg (e)+\lg \left(\Theta\left(\frac{n+1}{n}\right)\right)
 \end{gathered}
 $$
-We know that the above equation is dominated by the second part. For $n>4 e$,  we have
-$$
-\lim _{n \rightarrow \infty} \frac{n^n}{n !}=\lim _{n \rightarrow \infty} \frac{1}{\sqrt{2 \pi n}\left(1+\Theta\left(\frac{1}{n}\right)\right)} e^n=\lim _{n \rightarrow \infty} O\left(n^{-\frac12}\right) e^n \geq \lim _{n \rightarrow \infty} \frac{e^n}{c_1 \sqrt{n}} 
-\geq \lim _{n \rightarrow \infty} \frac{e^n}{c_1 n}=\lim _{n \rightarrow \infty} \frac{e^n}{c_1}=\infty
-$$
+We know that the above equation is dominated by the second part. Thus they are $\Theta$ related.
 \end{proof}
 \section{Prove or disprove each of the following statements.} 
 \subsection{Assume that $\lim _{n \rightarrow \infty} f(n)=\infty, \lim _{n \rightarrow \infty} g(n)=\infty, \forall n, f(n) \geq 1$ and $\forall n, g(n) \geq 1$. If $f(n)=O(g(n))$, then $\lg (f(n))=O(\lg (g(n)))$}\label{prove}
