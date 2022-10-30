@@ -51,20 +51,20 @@
 \section{The following questions are about the Worst Case and the Best Case performance of QuickSort. }
 \begin{algorithm}
   \caption{QUICKSORT$(A,p,r)$}\label{alg:cap1}
-  \begin{algorithmic}[1] 
-  % \Require $n \geq 0$
-  % \Ensure $y = x^n$
-  \If{$p<r$}
-  \State $q =\text{PARTITION}(A,p,r) $
-  \State $\text{QUICKSORT}(A,p, q-1)$
-  \State $\text{QUICKSORT}(A,q+1,r)$
-  \EndIf
+  \begin{algorithmic}[1]
+    % \Require $n \geq 0$
+    % \Ensure $y = x^n$
+    \If{$p<r$}
+    \State $q =\text{PARTITION}(A,p,r) $
+    \State $\text{QUICKSORT}(A,p, q-1)$
+    \State $\text{QUICKSORT}(A,q+1,r)$
+    \EndIf
   \end{algorithmic}
-  \end{algorithm}
+\end{algorithm}
 
-  \begin{algorithm}
-    \caption{PARTISION$(A,p,r)$}\label{alg:cap2}
-    \begin{algorithmic}[1] 
+\begin{algorithm}
+  \caption{PARTISION$(A,p,r)$}\label{alg:cap2}
+  \begin{algorithmic}[1]
     % \Require $n \geq 0$
     % \Ensure $y = x^n$
     \State $x=A[r]$
@@ -79,29 +79,29 @@
     \EndFor
     \\
     \Return i+1
-    \end{algorithmic}
-    \end{algorithm}
+  \end{algorithmic}
+\end{algorithm}
 \subsection{The Worst Case Running Time of QuickSort }
 
 on an array with $\mathrm{n}$ items is $\theta\left(\mathrm{n}^2\right)$, because an Adversary might pick an input of size $\mathrm{n}$ such that the Running Time for QuickSort on that input will be both $O\left(n^2\right)$ and $\Omega\left(n^2\right)$.
 \begin{proof}
-The adversary case of the worst case is the least balanced partition that produce two subproblem with $n-1$ elements. So that one partitioning costs the $\Theta(n) $ time while the other costs $T(0)$ time. Then we gain that $T(n)=max\{T(n-1-q)+T(q) : 0\leq q\leq n-1\}+ \Theta(n)$. Using the substitution methods that we guess that $T(n)\leq O(n^2)$
-We have 
-$$\begin{aligned} T(n) & \leq \max \left\{c_1 q^2+c_1(n-1-q)^2: 0 \leq q \leq n-1\right\}+\Theta(n) \\ &=c_1 \cdot \max \left\{q^2+(n-1-q)^2: 0 \leq q \leq n-1\right\}+\Theta(n) . \
-\\ &= c_1 \cdot max \{q^2+(n-1)^2-2 q(n-1)+q^2\} + \Theta(n)
-\\ &=c_1 \cdot max\{(n-1)^2+2q(q-(n-1)) \}
-\\ &\leq c_1 \cdot(n-1)^2  \end{aligned}$$
+  The adversary case of the worst case is the least balanced partition that produce two subproblem with $n-1$ elements. So that one partitioning costs the $\Theta(n) $ time while the other costs $T(0)$ time. Then we gain that $T(n)=max\{T(n-1-q)+T(q) : 0\leq q\leq n-1\}+ \Theta(n)$. Using the substitution methods that we guess that $T(n)\leq O(n^2)$
+  We have
+  $$\begin{aligned} T(n) & \leq \max \left\{c_1 q^2+c_1(n-1-q)^2: 0 \leq q \leq n-1\right\}+\Theta(n) \\ &=c_1 \cdot \max \left\{q^2+(n-1-q)^2: 0 \leq q \leq n-1\right\}+\Theta(n) . \
+                \\ &= c_1 \cdot max \{q^2+(n-1)^2-2 q(n-1)+q^2\} + \Theta(n)
+                \\ &=c_1 \cdot max\{(n-1)^2+2q(q-(n-1)) \}
+                \\ &\leq c_1 \cdot(n-1)^2\end{aligned}$$
 
-$$\forall n_0 \geq 1, c_1\geq 1$$
+  $$\forall n_0 \geq 1, c_1\geq 1$$
 
-Thus we have $T(n)\in O(n^2)$.
+  Thus we have $T(n)\in O(n^2)$.
 
-The adversary case of the worst case is that produces one subproblem with $n – 1$ elements and one with 0 elements.
-$$\begin{aligned} T(n) & \leq c_2(n-1)^2+\Theta(n) \\ & \leq c_2(n-1)^2+c_0 n \\ & \leq c_2\left(n^2-2 n+1\right)+c_0 n \\ & \leq c_2 n^2-\left(2 c_2-c_0\right) n+c_2 \\ & \leq c_2 n^2 \end{aligned}$$
+  The adversary case of the worst case is that produces one subproblem with $n – 1$ elements and one with 0 elements.
+  $$\begin{aligned} T(n) & \leq c_2(n-1)^2+\Theta(n) \\ & \leq c_2(n-1)^2+c_0 n \\ & \leq c_2\left(n^2-2 n+1\right)+c_0 n \\ & \leq c_2 n^2-\left(2 c_2-c_0\right) n+c_2 \\ & \leq c_2 n^2 \end{aligned}$$
 
-$$\forall n_0 \geq 1, c_0>c_2$$
+  $$\forall n_0 \geq 1, c_0>c_2$$
 
-Thus we have $T(n)\in \Omega(n^2)$.
+  Thus we have $T(n)\in \Omega(n^2)$.
 
 \end{proof}
 
@@ -122,30 +122,30 @@ $T(1)=1$\\
 For $n \geq 2$\\
 $\quad T(n)=T(n-1)+n^3$
 \begin{proof}
-We have 
-$$\begin{aligned} T(n) & \leq c(n-1)^4+n^3 
-  \\ & \leq c(n^4-4n^3+6n^2-4n +1)+ n^3 
-  \\ & \leq cn^4-(4c-1)n^3+6cn^2-4cn +c
- \end{aligned}$$
+  We have
+  $$\begin{aligned} T(n) & \leq c(n-1)^4+n^3
+                \\ & \leq c(n^4-4n^3+6n^2-4n +1)+ n^3
+                \\ & \leq cn^4-(4c-1)n^3+6cn^2-4cn +c
+    \end{aligned}$$
 
- Take $c=\frac 14,n_0\geq 2$ to let $cn^4-(4c-1)n^3+6cn^2-4cn+c\leq cn^4$, we have $\frac 3 2 n^2-n+\frac 14\leq0$, check for $n\geq 2$ the equation always holds. Thus $T(n)=O(n^4)$
+  Take $c=\frac 14,n_0\geq 2$ to let $cn^4-(4c-1)n^3+6cn^2-4cn+c\leq cn^4$, we have $\frac 3 2 n^2-n+\frac 14\leq0$, check for $n\geq 2$ the equation always holds. Thus $T(n)=O(n^4)$
 \end{proof}
 \subsection{Using the Substitution Method, try to prove that the solution of the Recurrence is $O(n^2)$}
 $T(1)=1$ \\For $n \geq 2$\\
 $T(n)=2 T(\lfloor n / 2\rfloor)+2 n \quad$ (You may solve this using $n / 2$ instead of $\lfloor n / 2\rfloor$ )
 \begin{proof}
-We have
-$$\begin{aligned} T(n) & \leq 2c\lfloor n^2 / 2\rfloor+2n 
-  \\ & \leq cn^2+2n
- \end{aligned}$$
-  \end{proof}
+  We have
+  $$\begin{aligned} T(n) & \leq 2c\lfloor n^2 / 2\rfloor+2n
+                \\ & \leq cn^2+2n
+    \end{aligned}$$
+\end{proof}
 
-  To let $-n-cn^2\leq 0$ always holds for $n\geq 2$. We have $f(n)= -c(n-\frac 1{2c})^2+\frac1{4c}\leq0$, we need to have 
-  $\begin{cases}
-    f(2) \leq 0\\
+To let $-n-cn^2\leq 0$ always holds for $n\geq 2$. We have $f(n)= -c(n-\frac 1{2c})^2+\frac1{4c}\leq0$, we need to have
+$\begin{cases}
+    f(2) \leq 0 \\
     c>0
-    \end{cases}$
-  So, $c\geq \frac 12$. We just take $c=1,n_0\geq 2$ will satisfy the problem.
+  \end{cases}$
+So, $c\geq \frac 12$. We just take $c=1,n_0\geq 2$ will satisfy the problem.
 \section{Given an array $A[1..n]$, a pair of array indices $(i, j)$ is called an Inversion if $i < j$ but $A[i] > A[j]$. That is, $A[i]$ and $A[j]$ are out-of-order in $A$.}
 
 For example, if $n=4$ and $A[1]=13, A[2]=5, A[3]=17$ and $A[4]=8$, then there are 3 Inversions, namely $(1,2),(1,4)$ and $(3,4)$
@@ -158,40 +158,100 @@ Please keep $f(n)$ simple. For example, $\theta(n)$ is a better answer than $\th
 
 \begin{algorithm}
   \caption{COUNT-INVERSION$(A,p,r)$}\label{alg:cap3}
-  \begin{algorithmic}[1] 
-  % \Require $n \geq 0$
-  % \Ensure $y = x^n$
-  \If{$p\geq r$}
-  \State \textbf{return} 0
-  \EndIf
-    
-  \State $q =\lfloor\frac{p+2}2\rfloor $
-  \State $l =\text{COUNT-INVERSION}(A,p, q-1)$
-  \State $r = \text{COUNT-INVERSION}(A,q+1,r)$
-  \State $inv =l+r+ \text{MERGE-RESULT}(A,p,q,r)$
+  \begin{algorithmic}[1]
+    % \Require $n \geq 0$
+    % \Ensure $y = x^n$
+    \If{$p\geq r$}
+    \State \textbf{return} 0
+    \EndIf
+
+    \State $q =\lfloor\frac{p+2}2\rfloor $
+    \State $l =\text{COUNT-INVERSION}(A,p, q-1)$
+    \State $r = \text{COUNT-INVERSION}(A,q+1,r)$
+    \State $inv =l+r+ \text{MERGE}(A,p,q,r)$
 
   \end{algorithmic}
-  \end{algorithm}
-  \begin{algorithm}
-    \caption{MERGE-RESULT$(A,p,r)$}\label{alg:cap4}
-    \begin{algorithmic}[1] 
+\end{algorithm}
+\begin{algorithm}
+  \caption{MERGE$(A,p,r)$}\label{alg:cap4}
+  \begin{algorithmic}[1]
+    \State $n_1=q-p+2$
+    \State $n_2=r-q$
+    \State \textbf{initialize} $L[1..n_1]$ and $R[1..n_2]$
 
-  
-    \end{algorithmic}
-    \end{algorithm}
+    \For {$i=n$ \textbf{to} $n_1$}
+    \Statement $L[i]=A[p+i-1]$
+    \EndFor
+
+    \For {$j=1$ \textbf{to} $n_2$}
+    \Statement $R[j]=A[q+j]$
+    \EndFor
+
+    \State $L\left[n_1+1\right]=\infty $
+    \State $R\left[n_2+1\right]=\infty $
+    \State $i=1 $
+    \State $j=1 $
+    \State $ inv =0 $
+    \For {$k=p$ \textbf { to } $r $}
+    \If  {$L[i] \leq R[j] $}
+    \State $ A[k]=L[i] $
+    \State $i=i+1 $
+    \Else
+    \State $inv=inv+\left(n_1-i+1\right) $
+    \State $A[k]=R[j] $
+    \State $j=j+1$
+    \EndIf
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+\begin{proof}
+ The worst case running time is $\Theta(n^2)$.
+
+ \textbf{Divide}: The divide step just computes the middle of the subarray, which takes constant time. Thus, $D(n)=\Theta(1)$.
+
+\textbf{Conquer}: Recursively solving two subproblems, each of size $n / 2$, contributes $2 T(n / 2)$ to the running time (ignoring the floors and ceilings, as we discussed).
+
+\textbf{Combine}: Since the MERGE procedure on an $n$-element subarray takes $\Theta(n)$ time, we have $C(n)=\Theta(n)$.
+
+When we add the functions $D(n)$ and $C(n)$ for the merge sort analysis, we are adding a function that is $\Theta(n)$ and a function that is $\Theta(1)$. This sum is a linear function of $n$. That is, it is roughly proportional to $n$ when $n$ is large, and so merge sort's dividing and combining times together are $\Theta(n)$. Adding $\Theta(n)$ to the $2 T(n / 2)$ term from the conquer step gives the recurrence for the worst-case running time $T(n)$ of merge sort:
+$$
+T(n)=2 T(n / 2)+\Theta(n) 
+$$
+Using master theorem, we get the result is $\Theta(n^2)$
+\end{proof}
+\section{Proof master thereom}
+The solution of the recurrence is $T(n)=\sum_{i=0}^{\log _b n} a^i f\left(n / b^i\right)+O\left(n^{\log _b a}\right)$
+\subsection{Prove Case 1: If $a>b^d$ then $T(n)=\Omega\left(n^{ \log _b(a)}\right)$}
+\begin{proof}
+  From the above equation, we have $T(n)=\sum_{i=0}^{\log _b n} a^i f\left(n / b^i\right)+O\left(n^{\log _b a}\right) \leq \sum_{i=0}^{\log _b n} a^i\left(n / b^i\right)^{\log _b a-\varepsilon}+O\left(n^{\log _b a}\right)$. Then we can deduce
+$$
+  \begin{aligned}
+    \sum_{i=0}^{\log _b n} a^i\left(n / b^i\right)^{\log _b a-\varepsilon} &=n^{\log _b a-\varepsilon} \sum_{i=0}^{\log _b n} a^i b^{-i \log _b a} b^{i \varepsilon}=n^{\log _b a-\varepsilon} \sum_{i=0}^{\log _b n} a^i a^{-i} b^{i \varepsilon} \\
+    &=n^{\log _b a-\varepsilon} \sum_{i=0}^{\log _b n} b^{\varepsilon i}
+    \\ &=n^{\log _b a-\varepsilon} \frac{b^{\varepsilon\left(\log _b n+1\right)}-1}{b^{\varepsilon}-1} \\
+    &=n^{\log _b a-\varepsilon} \frac{n^{\varepsilon} b^{\varepsilon}-1}{b^{\varepsilon}-1}\\& \leq n^{\log _b a-\varepsilon} \frac{n^{\varepsilon} b^{\varepsilon}}{b^{\varepsilon}-1}\\ 
+    &=n^{\log _b a} \frac{b^{\varepsilon}}{b^{\varepsilon}-1} \\
+    &=O\left(n^{\log _b a}\right) .
+    \end{aligned}
+    $$
+\end{proof}
+\subsection{Prove Case 3: If $a<b^d$ then $T(n)=\Omega\left(n^d\right)$}
 \begin{proof}
 
 \end{proof}
-\section{Proof master thereom}
-\subsection{Prove Case 1: If $a>b^d$ then $T(n)=\Omega\left(n^{ \log _b(a)}\right)$}
-\subsection{Prove Case 3: If $a<b^d$ then $T(n)=\Omega\left(n^d\right)$}
-\section{Here's a strange procedure, Strange(A,n), whose input is an array $A[1..n]$.  }
-The array A is just an array of values, not a heap. But Strange does utilize both a MinHeap and a MaxHeap, which use the “Array as Binary Tree” representation that we discussed in class. That requires an array to 
-hold the values in the heap, (myMinHeap and myMaxHeap respectively) and a 
+\section{Strange procedure}
+Here's a strange procedure, Strange(A,n), whose input is an array $A[1..n]$.
+The array A is just an array of values, not a heap. But Strange does utilize both a MinHeap and a MaxHeap, which use the “Array as Binary Tree” representation that we discussed in class. That requires an array to
+hold the values in the heap, (myMinHeap and myMaxHeap respectively) and a
 heapSize (minSize and maxSize respectively)
+\begin{proof}
 
+\end{proof}
 \subsection{What is the time complexity of $Strange(A, n)$? }
 That is, provide a function $f(n)$
-such that the worst-case runtime of this algorithm is $\Theta( f(n) )$. You may assume that FindMin (and FindMax) takes constant time, and that ExtractMin (and 
+such that the worst-case runtime of this algorithm is $\Theta( f(n) )$. You may assume that FindMin (and FindMax) takes constant time, and that ExtractMin (and
 ExtractMax) take time $\Theta(lg n)$.
+\begin{proof}
+
+\end{proof}
 \end{document}
