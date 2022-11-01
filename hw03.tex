@@ -15,6 +15,7 @@
 \usepackage{fontspec}
 \usepackage{float}
 \usepackage{algpseudocode}
+\usepackage{extarrows}
 \usepackage{algorithm}
 \usepackage{tikz}
 \makeatletter
@@ -209,49 +210,84 @@ Please keep $f(n)$ simple. For example, $\theta(n)$ is a better answer than $\th
 
  \textbf{Divide}: The divide step just computes the middle of the subarray, which takes constant time. Thus, $D(n)=\Theta(1)$.
 
-\textbf{Conquer}: Recursively solving two subproblems, each of size $n / 2$, contributes $2 T(n / 2)$ to the running time (ignoring the floors and ceilings, as we discussed).
+\textbf{Conquer}: Recursively solving two subproblems, each of size $n / 2$, contributes $2 T(n / 2)$ to the running time. The floors have been ignored since it doesn't affect the eventual result
 
 \textbf{Combine}: Since the MERGE procedure on an $n$-element subarray takes $\Theta(n)$ time, we have $C(n)=\Theta(n)$.
 
-When we add the functions $D(n)$ and $C(n)$ for the merge sort analysis, we are adding a function that is $\Theta(n)$ and a function that is $\Theta(1)$. This sum is a linear function of $n$. That is, it is roughly proportional to $n$ when $n$ is large, and so merge sort's dividing and combining times together are $\Theta(n)$. Adding $\Theta(n)$ to the $2 T(n / 2)$ term from the conquer step gives the recurrence for the worst-case running time $T(n)$ of merge sort:
+The functions $\Theta(n)$ and $\Theta(1)$ are added when the functions $D(n)$ and $C(n)$ are added for the merge sort analysis. The linear function of $n$ is this sum. Since the division and combining times of the merge sort are $\Theta(n)$ when $n$ is large, it follows that it is roughly proportional to $n$ when $n$ is large. The recurrence for the merge sort's worst-case running time, $T(n)$, is obtained by adding $\Theta(n)$ to the $2 T(n / 2)$ term from the conquer step:
+
 $$
 T(n)=2 T(n / 2)+\Theta(n) 
 $$
 Using master theorem, we get the result is $\Theta(n^2)$
 \end{proof}
 \section{Proof master thereom}
-The solution of the recurrence is $T(n)=\sum_{i=0}^{\log _b n} a^i f\left(n / b^i\right)+O\left(n^{\log _b a}\right)$
 \subsection{Prove Case 1: If $a>b^d$ then $T(n)=\Omega\left(n^{ \log _b(a)}\right)$}
 \begin{proof}
-  From the above equation, we have $T(n)=\sum_{i=0}^{\log _b n} a^i f\left(n / b^i\right)+O\left(n^{\log _b a}\right) \leq \sum_{i=0}^{\log _b n} a^i\left(n / b^i\right)^{\log _b a-\varepsilon}+O\left(n^{\log _b a}\right)$. Then we can deduce
+  The solution of the recurrence is $T(n)=\sum_{i=0}^{\log _b n} a^i f\left(n / b^i\right)+O\left(n^{\log _b a}\right)$
+
+  From the above equation, we have $T(n)=\sum_{i=0}^{\log _b n} a^i T\left(n / b^i\right)+O\left(n^{\log _b a}\right) \leq \sum_{i=0}^{\log _b n} a^i\left(n / b^i\right)^{\log _b a-\varepsilon}+O\left(n^{\log _b a}\right)$. Then we can deduce
 $$
   \begin{aligned}
     \sum_{i=0}^{\log _b n} a^i\left(n / b^i\right)^{\log _b a-\varepsilon} &=n^{\log _b a-\varepsilon} \sum_{i=0}^{\log _b n} a^i b^{-i \log _b a} b^{i \varepsilon}=n^{\log _b a-\varepsilon} \sum_{i=0}^{\log _b n} a^i a^{-i} b^{i \varepsilon} \\
     &=n^{\log _b a-\varepsilon} \sum_{i=0}^{\log _b n} b^{\varepsilon i}
     \\ &=n^{\log _b a-\varepsilon} \frac{b^{\varepsilon\left(\log _b n+1\right)}-1}{b^{\varepsilon}-1} \\
-    &=n^{\log _b a-\varepsilon} \frac{n^{\varepsilon} b^{\varepsilon}-1}{b^{\varepsilon}-1}\\& \leq n^{\log _b a-\varepsilon} \frac{n^{\varepsilon} b^{\varepsilon}}{b^{\varepsilon}-1}\\ 
-    &=n^{\log _b a} \frac{b^{\varepsilon}}{b^{\varepsilon}-1} \\
-    &=O\left(n^{\log _b a}\right) .
+    &=n^{\log _b a-\varepsilon} \frac{n^{\varepsilon} b^{\varepsilon}-1}{b^{\varepsilon}-1}
+    \\& \geq n^{\log _b a-\varepsilon} \frac{n^{\varepsilon}( b^{\varepsilon}-1)}{b^{\varepsilon}-1}\\ 
+    &=n^{\log _b a} \\
+    &=\Omega\left(n^{\log _b a}\right) .
     \end{aligned}
     $$
 \end{proof}
 \subsection{Prove Case 3: If $a<b^d$ then $T(n)=\Omega\left(n^d\right)$}
 \begin{proof}
-
+  The lower bound is immediate, because $n^d$ is a term of the sum. $T(n)=a \cdot T(n / b)+c \cdot n^d\geq c \cdot n^d=\Omega(n^d)$
 \end{proof}
 \section{Strange procedure}
 Here's a strange procedure, Strange(A,n), whose input is an array $A[1..n]$.
 The array A is just an array of values, not a heap. But Strange does utilize both a MinHeap and a MaxHeap, which use the “Array as Binary Tree” representation that we discussed in class. That requires an array to
 hold the values in the heap, (myMinHeap and myMaxHeap respectively) and a
 heapSize (minSize and maxSize respectively)
-\begin{proof}
 
-\end{proof}
 \subsection{What is the time complexity of $Strange(A, n)$? }
 That is, provide a function $f(n)$
 such that the worst-case runtime of this algorithm is $\Theta( f(n) )$. You may assume that FindMin (and FindMax) takes constant time, and that ExtractMin (and
 ExtractMax) take time $\Theta(lg n)$.
-\begin{proof}
+\begin{algorithm}
+  \caption{STRANGE$(A,n)$}\label{alg:cap5}
+  \begin{algorithmic}[1]
+    \State \textbf{initialize} $maxSize=0$
+    \State \textbf{initialize} $minSize=0$
+    \State \textbf{initialize} $myMaxHeap=0$
+    \State \textbf{initialize} $myMinHeap=0$
 
+    \For {$j=1$ \textbf { to } $n $}
+    \State MinHeapInsert($myMinHeap,minSize,A[j]$)
+    \State $x=$ExtractMin($myMinHeap,minSize$)
+    \State MaxHeapInsert($myMaxHeap,maxSize,x$)
+    \If  {$minSize<maxSize$}
+    \State $y=$ExtractMax($myMaxHeap,maxSize$)
+    \State MinHeapInsert($myMinHeap,minSize,y$)
+    \EndIf
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
+\begin{proof}
+  First denote that for index $j$ $minSize+maxSize = j$ as $inv1$
+
+  \textbf{Initialization}: We start by showing that the loop invariant holds before the first loop iteration, when the minHeap and maxHeap are both 0.
+
+  \textbf{Maintenance}: For the inner loop, we first goes into the MinHeapInsert, and we extract the minimum for the MinHeap, so that we know that the MinHeap is always maintaining the bigger value once extracted to line 7. After inserting into the MaxHeap, we deduce the size of MaxHeap and MinHeap, we know that for odd number for $j$, we have the minSize smaller than maxSize, so we get into the branch to insert the biggist value of the MaxHeap to MinHeap. The running time for the loop is for odd number of $j$, takes $2\cdot \Theta(log (minSize))+\Theta(log(maxSize))$, for even number of $j$, we have $3\cdot \Theta(log (minSize))+2\cdot\Theta(log(maxSize))$ for each loop, we have $inv1$, every loop's time complexity is $\Theta(log(j))$
+
+  \textbf{Termination}: Finally, we examine loop termination. The loop variable $j$ starts at 1 and increases by 1 in each iteration. Once $j$'s value exceeds
+  n in line 5, the loop terminates. That is, the loop terminates once $j$
+  equals n. Thus the time complexity is $\Sigma _1^{j=n} \Theta(log(j))= \Theta(log(n!))\xlongequal{using\ Stiring\ Formula} \Theta(nlog(n))$
+
+  The time complexity is $\Theta(nlog(n))$
+\end{proof}
+
+\subsection{What's the value which Strange returns?}
+\begin{proof}
+The value is the middle one of the sorted array of $A[j]$, if the j is even, the one is the smaller one of the two middle ones, if j is odd, the one is the middle one.
 \end{proof}
 \end{document}
