@@ -1,3 +1,7 @@
 *.pdf
 *.log
 *.aux
+.vscode
+*.dSYM
+hw05-02
+hw05-02-test-folding

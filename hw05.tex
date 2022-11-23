@@ -1,0 +1,84 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[left=1.8cm,right=1.8cm,top=2.2cm,bottom=2.0cm]{geometry}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{xpatch}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{framed}
+\usepackage{multicol}
+\usepackage{fontspec}
+\usepackage{float}
+\usepackage{algpseudocode}
+\usepackage{extarrows}
+\usepackage{algorithm}
+\usepackage{tikz}
+\usepackage{caption}
+\makeatletter
+
+\printanswers
+
+
+\AtBeginDocument{\xpatchcmd{\@thm}{\thm@headpunct{.}}{\thm@headpunct{}}{}{}}
+\makeatother
+
+\pagestyle{fancy}
+\renewcommand{\baselinestretch}{1.15}
+\newcommand{\code}[1]{\texttt{#1}}
+\usepackage{paralist}
+\let\itemize\compactitem
+\let\enditemize\endcompactitem
+\let\enumerate\compactenum
+\let\endenumerate\endcompactenum
+\let\description\compactdesc
+\let\enddescription\endcompactdesc
+
+% shorten footnote rule
+\xpatchcmd\footnoterule
+  {.4\columnwidth}
+  {1in}
+  {}{\fail}
+
+\title{CSE 201: Homework 5}
+% \author{\textbf{Yiwei Yang} \\ \texttt{ yyang363@ucsc.edu}}
+
+
+\begin{document}
+\maketitle
+\section{Fractional Knapsack problem}
+\subsection{Optimal Substructure}
+The optimal strategy is to choose the item that has maximum value vs. weight ratial.
+
+\subsection{Pseudocode}
+supposet the item is defined as the struct of int value and weight.
+\begin{algorithm}
+    \caption{FractionalKPGreedy$(item_arr,n,w)$}\label{alg:cap3}
+    \begin{algorithmic}[1]
+        \State{SORT(A,n, [item a, item b]()\{return a.value/a.weight>b.value/b.weight\})}
+        \State{initialize $final\_val$ with $0.0$}
+        \For{i in 0..n}
+        \If{$item\_arr[i].weight<w$}
+        \State{$w-=item\_arr$}
+        \State{$final\_val +=item\_arr[i].value$}
+        \Else
+        \State{$final\_val+=item\_arr[i].value +w/item\_arr[i].weight$}
+        \State{\textbf{break}}
+        \EndIf
+        \EndFor
+    \end{algorithmic}
+  \end{algorithm}
+\subsection{Proof of correctness}
+Assume there's an instance that's better the definition of optimal substructure which is $\{p_1,...p_n\}$, the result outcome by the above algorithm is $\{q_1,...q_n\}$ w.l.o.g, the items have already sorted by decreasing order of $\frac{value_i}{weight_i}$. We have $\sum_{i=1}^n p_i value_i<\sum_{i=1}^n q_i value_i$. Let $i$ be there first index at which $p_i \neq q_i$. By the design of our algorithm, it must be that $p_i>q_i$. By the optimality, there must exist an item $j>i$ such that $p_j<q_j$. Consider a new solution $q^{\prime}=\left\{q_1^{\prime}, q_2^{\prime}, \ldots, q_n^{\prime}\right\}$ where $q_k^{\prime}=q_k$ for all $k \neq i, j . \quad q^{\prime}$ will take a little more of item $i$ and a little less of item $j$ compared to $O P T: q_i^{\prime}=q_i+\epsilon$, $q_j^{\prime}=q_j-\epsilon \frac{weight_i}{weight_j}$. The total weight does not change: $\sum_{i=1}^n q_i^{\prime} weight_i=\sum_{i=1}^n q_i weight_i$. Yet the total value strictly increases: $\sum_{i=1}^n q_i^{\prime} value_i=\sum_{i=1}^n q_i value_i+\epsilon value_i-\epsilon \frac{weight_i}{weight_j} value_j>\sum_{i=1}^n q_i value_i$. The $q^{\prime}$ is not the optimal solution then the optimal which is a contradiction. So the above solution is optimal.
+
+\section{Depth-First Search over Directed Graph}
+\subsection{Give the values of entryTime and finishTime of $dfs(A, 0)$}
+The answer is 
+
+\
+
+\end{document}
