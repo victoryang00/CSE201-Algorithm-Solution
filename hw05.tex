@@ -57,28 +57,195 @@ The optimal strategy is to choose the item that has maximum value vs. weight rat
 \subsection{Pseudocode}
 supposet the item is defined as the struct of int value and weight.
 \begin{algorithm}
-    \caption{FractionalKPGreedy$(item_arr,n,w)$}\label{alg:cap3}
-    \begin{algorithmic}[1]
-        \State{SORT(A,n, [item a, item b]()\{return a.value/a.weight>b.value/b.weight\})}
-        \State{initialize $final\_val$ with $0.0$}
-        \For{i in 0..n}
-        \If{$item\_arr[i].weight<w$}
-        \State{$w-=item\_arr$}
-        \State{$final\_val +=item\_arr[i].value$}
-        \Else
-        \State{$final\_val+=item\_arr[i].value +w/item\_arr[i].weight$}
-        \State{\textbf{break}}
-        \EndIf
-        \EndFor
-    \end{algorithmic}
-  \end{algorithm}
+  \caption{FractionalKPGreedy$(item_arr,n,w)$}\label{alg:cap3}
+  \begin{algorithmic}[1]
+    \State{SORT(A,n, [item a, item b]()\{return a.value/a.weight>b.value/b.weight\})}
+    \State{initialize $final\_val$ with $0.0$}
+    \For{i in 0..n}
+    \If{$item\_arr[i].weight<w$}
+    \State{$w-=item\_arr$}
+    \State{$final\_val +=item\_arr[i].value$}
+    \Else
+    \State{$final\_val+=item\_arr[i].value +w/item\_arr[i].weight$}
+    \State{\textbf{break}}
+    \EndIf
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}
 \subsection{Proof of correctness}
 Assume there's an instance that's better the definition of optimal substructure which is $\{p_1,...p_n\}$, the result outcome by the above algorithm is $\{q_1,...q_n\}$ w.l.o.g, the items have already sorted by decreasing order of $\frac{value_i}{weight_i}$. We have $\sum_{i=1}^n p_i value_i<\sum_{i=1}^n q_i value_i$. Let $i$ be there first index at which $p_i \neq q_i$. By the design of our algorithm, it must be that $p_i>q_i$. By the optimality, there must exist an item $j>i$ such that $p_j<q_j$. Consider a new solution $q^{\prime}=\left\{q_1^{\prime}, q_2^{\prime}, \ldots, q_n^{\prime}\right\}$ where $q_k^{\prime}=q_k$ for all $k \neq i, j . \quad q^{\prime}$ will take a little more of item $i$ and a little less of item $j$ compared to $O P T: q_i^{\prime}=q_i+\epsilon$, $q_j^{\prime}=q_j-\epsilon \frac{weight_i}{weight_j}$. The total weight does not change: $\sum_{i=1}^n q_i^{\prime} weight_i=\sum_{i=1}^n q_i weight_i$. Yet the total value strictly increases: $\sum_{i=1}^n q_i^{\prime} value_i=\sum_{i=1}^n q_i value_i+\epsilon value_i-\epsilon \frac{weight_i}{weight_j} value_j>\sum_{i=1}^n q_i value_i$. The $q^{\prime}$ is not the optimal solution then the optimal which is a contradiction. So the above solution is optimal.
 
 \section{Depth-First Search over Directed Graph}
 \subsection{Give the values of entryTime and finishTime of $dfs(A, 0)$}
-The answer is 
+The answer is
 
-\
+\begin{center}
+  \begin{tabular}{ |c|c|c| }
+    \hline
+    ID & entryTime & finishTime \\ \hline
+    A  & 0         & 9          \\
+    B  & 1         & 4          \\
+    C  & 5         & 8          \\
+    D  & 6         & 7          \\
+    E  & 2         & 3          \\
+    \hline
+  \end{tabular}
+\end{center}
 
+\subsection{Use DFS to get loop time}
+\begin{algorithm}
+  \caption{efficientDFS$(arr,n)$}\label{alg:cap4}
+  \begin{algorithmic}[1]
+    \State{use nodes to build $graph$}
+    \State{dump all nodes into a vector of nodes $vs$}
+    \State{randomly find a node $x$ to start}
+    \State{$time= dfs(x,0)$}
+    \While{$true$}
+    \For {v in $0..vs.size()$}
+    \State{$time = dfs(vs[v],time)$}
+    \State{\textbf{continue}}
+    \EndFor
+    \If{$v = vs.size()$}
+    \State{\textbf{break}}
+    \EndIf
+    \EndWhile
+  \end{algorithmic}
+\end{algorithm}
+
+The inner loop's running times are how many strongly connected components starting from the loop point are and each DFS will be a DFS inside the SCC.
+
+For instance if the order of the point is $D$, we first marked $DE$ as visited. then $C$, only $C$ is marked, but $CDE$ are all marked. then if $A$, $AB$ will be marked, but $ABCDE$ are all traversed once. the worst running time is E->D->C->B->A, n+m + n-1+m-(1/2/3) +.. 1+1 + n+n-1+...1 =$O(n^2+m^2)$, the best running time is just one DFS $O(n+m1)$
+\section{Dijkstra's Algortihm}
+The process is 
+\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    v & d[v] \\ \hline
+    B & 2\\
+    C & 1\\
+    D & 4\\
+    \hline
+  \end{tabular}
+\end{center}
+Then update
+\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    v & d[v] \\ \hline
+    E & 12 \\
+    \hline
+  \end{tabular}
+\end{center}
+Then update
+\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    v & d[v] \\ \hline
+    F & 4 \\
+    \hline
+  \end{tabular}
+\end{center}
+Then update\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    v & d[v] \\ \hline
+    H & 7 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+Then update\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    v & d[v] \\ \hline
+    G & 8 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+Then update
+\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    v & d[v] \\ \hline
+    E & 11 \\
+    \hline
+  \end{tabular}
+\end{center}
+\subsection{Parents of each vertex}
+\begin{center}
+  \begin{tabular}{ |c|c| }
+    \hline
+    v & parent[v] \\ \hline
+    B & A \\
+    C & A \\
+    D & A \\
+    E & G \\
+    F & B \\
+    G & H \\
+    H & F \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\section{Prim's and Kruskal's Algorithm}
+
+\subsection{Proof exist a $BC$ composed tree}
+
+Suppose that $BC$ does not belong to some minimum spanning tree of G.
+
+Then there exists a path from B to C in some other minimum spanning tree, called T.
+
+For any edge (x, y) on the path from A to u, we’ll take the edge (x, y) out of the tree T and add edge (C, B) to tree T. This new tree is to be called T’.
+
+There still exists a path from x to y in T’ through edge (C, B).
+
+Weight of (C, B) $\leq$ Weight of all edges (inclusive of edge (x, y))
+
+Implies
+
+Weight of T’ $\leq$ Weight of T
+
+Therefore T’ is the minimum spanning tree a contradiction!
+
+Therefore $BC$ is an element of some minimum spanning tree.
+
+\subsection{Proof exixst a $AD,DE,FG$ composed tree}
+Since $AD,DE,FG$ are the smallest-sized three edge.
+
+The proof is that for sorted edges of G in non-descending order, we would want that among the edges of same weight, the edges which are contained in T are placed in first positions.
+
+Kruskal’s algorithm will return T when run on E if sorted in the above mentioned manner.
+
+T: $e_1$ $\leq$ $e_2$ $\leq$ , … , $\leq$ $e_m$
+
+T’: $e’_1$ $\leq$ $e’_2$ $\leq$ , … , $\leq$ $e’_m$
+
+Weight of $e_i$ = Weight of $e’_i$ where 1 $\leq$ i $\leq$ m
+
+Since the algorithm always places edges of T first, the edges of T will be chosen to T’. That proves we will first come into the least-sized three edge.
+\section{Miller Rabin}
+\subsection{Pseudocode}
+$q$ can be starting from $s=n-1,q=0$ and $\text{while }(s\%2==0),q++,s>>=1;$ to find the $q$. Constantly do $s^a$ operation, if a non-trivial a's root is found, it can be determined that it is not a prime number.
+
+To find $a^q$ faster, we can use following Pseudocode
+\begin{algorithm}
+  \caption{FastPower$(a,exp)$}\label{alg:cap5}
+  \begin{algorithmic}[1]
+		\If {$exp = 1$}
+			\State{return $a$}
+		\EndIf
+		\If {$exp = 0$} 
+			\State{return $1$}
+		\EndIf
+		\State{$d = FastPower(a, exp >> 1)$}
+		\State{$d = d * d$}
+		\If {$(exp & 1) = 1$} 
+			\State{$d *= a$}
+		\EndIf
+		\State{return $1$}
+  \end{algorithmic}
+\end{algorithm}
+\subsection{Probality if 1 witness is $\frac 1 4$ what if k independent witnesses if n is a prime}
+The confidence for k independent witnesses if n is composite is $1-\frac {1} {4}^k$ and the confidence for prime is $\frac 1 4^k$
 \end{document}

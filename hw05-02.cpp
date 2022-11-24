@@ -44,6 +44,18 @@ int main() {
   b.addEdge(&e);
   c.addEdge(&d);
   d.addEdge(&e);
+  dfs(&c, 0);
+  std::cout << a.currState << " " << a.id << " " << a.entrytime << " "
+            << a.finishTime << "\n";
+  std::cout << b.currState << " " << b.id << " " << b.entrytime << " "
+            << b.finishTime << "\n";
+  std::cout << c.currState << " " << c.id << " " << c.entrytime << " "
+            << c.finishTime << "\n";
+  std::cout << d.currState << " " << d.id << " " << d.entrytime << " "
+            << d.finishTime << "\n";
+  std::cout << e.currState << " " << e.id << " " << e.entrytime << " "
+            << e.finishTime << "\n";
+  std::cout << "-----------------------\n";
   dfs(&a, 0);
   std::cout << a.currState << " " << a.id << " " << a.entrytime << " "
             << a.finishTime << "\n";
